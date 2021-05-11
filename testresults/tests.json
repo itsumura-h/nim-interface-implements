@@ -1,2 +1,0 @@
-[
-{"name":"tests/test1.nim C","category":"tests","target":"C","action":"run","result":"reSuccess","expected":"","given":"","machine":"mehdi-ThinkPad-X250","commit":"c5bde6cee0a","branch":"feature_github_test"}]
