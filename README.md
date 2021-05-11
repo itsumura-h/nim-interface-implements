@@ -1,6 +1,8 @@
 toInterface
 ===
 
+![](https://github.com/itsumura-h/nim-to-interface/workflows/Build%20and%20test%20Nim/badge.svg)
+
 `bindInterface` macro creates `toInterface` proc. It provides polymorphism.
 
 ```nim
