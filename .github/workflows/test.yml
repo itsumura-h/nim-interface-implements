@@ -1,0 +1,56 @@
+name: Build and test Nim
+
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+      - 'documents/*'
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - 'documents/*'
+
+jobs:
+  # WIP でジョブがスキップされてもCIが失敗した扱いにならないようにするため
+  skip:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Skip job"
+
+  # WIP がコミットメッセージに含まれているとジョブを起動しない
+  before:
+    runs-on: ubuntu-latest
+    if: "! contains(github.event.head_commit.message, 'WIP')"
+    steps:
+      - run: echo "no WIP"
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          # - macOS-latest
+        nim-version:
+          - 1.4.0
+          - stable
+    needs: before
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache choosenim
+      id: cache-choosenim
+      uses: actions/cache@v1
+      with:
+        path: ~/.choosenim
+        key: ${{ runner.os }}-choosenim-${{ matrix.nim-version }}
+    - name: Cache nimble
+      id: cache-nimble
+      uses: actions/cache@v1
+      with:
+        path: ~/.nimble
+        key: ${{ runner.os }}-nimble-${{ matrix.nim-version }}
+    - uses: jiro4989/setup-nim-action@v1
+      with:
+        nim-version: ${{ matrix.nim-version }}
+    - run: testament r tests/test1.nim
