@@ -7,7 +7,7 @@ interface-implements
 Multiple procedures can be set in `implements` block.
 
 ```nim
-import implements
+import interface_implements
 
 implements Repository, IReository:
   proc func1(self:Repository, msg:string):string =
@@ -48,7 +48,7 @@ type IReository* = tuple
 mock_repository.nim
 ```nim
 import repository_interface
-import implements
+import interface_implements
 
 type MockRepository = ref object
 
@@ -63,7 +63,7 @@ implements MockRepository, IReository:
 repository.nim
 ```nim
 import repository_interface
-import implements
+import interface_implements
 
 type Repository = ref object
 
