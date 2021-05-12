@@ -1,2 +1,2 @@
-type IReository* = tuple
+type IRepository* = tuple
   exec: proc(msg:string):string

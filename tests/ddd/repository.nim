@@ -6,6 +6,6 @@ type Repository = ref object
 proc newRepository*():Repository =
   return Repository()
 
-implements Repository, IReository:
+implements Repository, IRepository:
   proc exec(self:Repository, msg:string):string =
     return "Repository " & msg

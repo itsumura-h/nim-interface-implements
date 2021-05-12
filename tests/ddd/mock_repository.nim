@@ -6,6 +6,6 @@ type MockRepository = ref object
 proc newMockRepository*():MockRepository =
   return MockRepository()
 
-implements MockRepository, IReository:
+implements MockRepository, IRepository:
   proc exec(self:MockRepository, msg:string):string =
     return "MockRepository " & msg

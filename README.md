@@ -9,7 +9,7 @@ Multiple procedures can be set in `implements` block.
 ```nim
 import interface_implements
 
-implements Repository, IReository:
+implements Repository, IRepository:
   proc func1(self:Repository, msg:string):string =
     return "Repository1 " & msg
 
@@ -25,7 +25,7 @@ proc func1(self:Repository, msg:string):string =
 proc func2(self:Repository, number:int):string =
   return "Repository2 " & $msg
 
-proc toInterface*(self:Repository):IReository =
+proc toInterface*(self:Repository):IRepository =
   return (
     func1: proc(msg:string):string = self.func1(msg),
     func2: proc(number:int):string = self.func2(number)
@@ -41,7 +41,7 @@ macro implements*(implName, interfaceName, procs:untyped):untyped
 
 repository_interface.nim
 ```nim
-type IReository* = tuple
+type IRepository* = tuple
   exec: proc(msg:string):string
 ```
 
@@ -55,7 +55,7 @@ type MockRepository = ref object
 proc newMockRepository*():MockRepository =
   return MockRepository()
 
-implements MockRepository, IReository:
+implements MockRepository, IRepository:
   proc exec(self:MockRepository, msg:string):string =
     return "MockRepository " & msg
 ```
@@ -70,7 +70,7 @@ type Repository = ref object
 proc newRepository*():Repository =
   return Repository()
 
-implements Repository, IReository:
+implements Repository, IRepository:
   proc exec(self:Repository, msg:string):string =
     return "Repository " & msg
 ```
@@ -80,9 +80,9 @@ usecase.nim
 import repository_interface
 
 type Usecase = ref object
-  repository: IReository
+  repository: IRepository
 
-func newUsecase*(repository:IReository):Usecase =
+func newUsecase*(repository:IRepository):Usecase =
   return Usecase(repository:repository)
 
 proc exec*(self:Usecase, msg:string):string =
