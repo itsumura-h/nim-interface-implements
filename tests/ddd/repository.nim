@@ -1,5 +1,5 @@
 import repository_interface
-import ../../src/implements
+import ../../src/interface_implements
 
 type Repository = ref object
 
