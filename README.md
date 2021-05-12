@@ -14,7 +14,7 @@ implements Repository, IRepository:
     return "Repository1 " & msg
 
   proc func2(self:Repository, number:int):string =
-    return "Repository2 " & $msg
+    return "Repository2 " & $number
 ```
 This is converted to bellow
 
@@ -23,7 +23,7 @@ proc func1(self:Repository, msg:string):string =
   return "Repository " & msg
 
 proc func2(self:Repository, number:int):string =
-  return "Repository2 " & $msg
+  return "Repository2 " & $number
 
 proc toInterface*(self:Repository):IRepository =
   return (
