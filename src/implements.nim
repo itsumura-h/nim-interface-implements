@@ -1,6 +1,6 @@
 import macros, strutils, strformat
 
-macro bindInterface*(interfaceName, implName, procs:untyped):untyped =
+macro implements*(implName, interfaceName, procs:untyped):untyped =
   let procsStr = procs.repr
   var tuples = ""
   for i, aProc in procs:
