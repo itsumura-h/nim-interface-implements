@@ -1,13 +1,15 @@
-toInterface
+interface-implements
 ===
 
-![](https://github.com/itsumura-h/nim-to-interface/workflows/Build%20and%20test%20Nim/badge.svg)
+![](https://github.com/itsumura-h/nim-interface-implements/workflows/Build%20and%20test%20Nim/badge.svg)
 
-`bindInterface` macro creates `toInterface` proc. It provides polymorphism.  
-Multiple procedures can be set in `bindInterface` block.
+`implements` macro creates `toInterface` proc. It provides polymorphism.  
+Multiple procedures can be set in `implements` block.
 
 ```nim
-bindInterface IReository, Repository:
+import implements
+
+implements Repository, IReository:
   proc func1(self:Repository, msg:string):string =
     return "Repository1 " & msg
 
@@ -29,7 +31,7 @@ proc toInterface*(self:Repository):IReository =
 
 ## API
 ```nim
-macro bindInterface*(interfaceName, implName, procs:untyped):untyped
+macro implements*(implName, interfaceName, procs:untyped):untyped
 ```
 
 ## Example
@@ -43,14 +45,14 @@ type IReository* = tuple
 mock_repository.nim
 ```nim
 import repository_interface
-import to_interface
+import implements
 
 type MockRepository = ref object
 
 proc newMockRepository*():MockRepository =
   return MockRepository()
 
-bindInterface IReository, MockRepository:
+implements MockRepository, IReository:
   proc exec(self:MockRepository, msg:string):string =
     return "MockRepository " & msg
 ```
@@ -58,14 +60,14 @@ bindInterface IReository, MockRepository:
 repository.nim
 ```nim
 import repository_interface
-import to_interface
+import implements
 
 type Repository = ref object
 
 proc newRepository*():Repository =
   return Repository()
 
-bindInterface IReository, Repository:
+implements Repository, IReository:
   proc exec(self:Repository, msg:string):string =
     return "Repository " & msg
 ```
