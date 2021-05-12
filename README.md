@@ -3,12 +3,16 @@ toInterface
 
 ![](https://github.com/itsumura-h/nim-to-interface/workflows/Build%20and%20test%20Nim/badge.svg)
 
-`bindInterface` macro creates `toInterface` proc. It provides polymorphism.
+`bindInterface` macro creates `toInterface` proc. It provides polymorphism.  
+Multiple procedures can be set in `bindInterface` block.
 
 ```nim
 bindInterface IReository, Repository:
-  proc exec(self:Repository, msg:string):string =
-    return "Repository " & msg
+  proc func1(self:Repository, msg:string):string =
+    return "Repository1 " & msg
+
+  proc func2(self:Repository, number:int):string =
+    return "Repository2 " & $msg
 ```
 This is converted to bellow
 
@@ -18,7 +22,8 @@ proc exec(self:Repository, msg:string):string =
 
 proc toInterface*(self:Repository):IReository =
   return (
-    exec: proc(msg:string):string = self.exec(msg)
+    func1: proc(msg:string):string = self.func1(msg),
+    func2: proc(number:int):string = self.func2(number)
   )
 ```
 
