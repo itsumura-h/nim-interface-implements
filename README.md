@@ -101,3 +101,5 @@ block:
   let usecase = newUsecase(repository)
   assert "Repository exec" == usecase.exec("exec")
 ```
+
+![](./design.png)
