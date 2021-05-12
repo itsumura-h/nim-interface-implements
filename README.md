@@ -19,8 +19,11 @@ implements Repository, IReository:
 This is converted to bellow
 
 ```nim
-proc exec(self:Repository, msg:string):string =
+proc func1(self:Repository, msg:string):string =
   return "Repository " & msg
+
+proc func2(self:Repository, number:int):string =
+  return "Repository2 " & $msg
 
 proc toInterface*(self:Repository):IReository =
   return (
