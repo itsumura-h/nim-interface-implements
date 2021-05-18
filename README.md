@@ -1,10 +1,16 @@
 interface-implements
 ===
 
+[![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://github.com/yglukhov/nimble-tag)
+
 ![](https://github.com/itsumura-h/nim-interface-implements/workflows/Build%20and%20test%20Nim/badge.svg)
 
 `implements` macro creates `toInterface` proc. It provides polymorphism.  
 Multiple procedures can be set in `implements` block.
+
+```sh
+nimble install interface_implements
+```
 
 ```nim
 import interface_implements
