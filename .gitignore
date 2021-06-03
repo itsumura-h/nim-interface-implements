@@ -7,3 +7,5 @@ nimcache/
 testresults/
 
 # End of https://www.gitignore.io/api/nim
+
+!LICENSE
