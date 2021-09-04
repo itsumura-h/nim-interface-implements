@@ -4,6 +4,8 @@ macro implements*(implName, interfaceName, procs:untyped):untyped =
   let procsStr = procs.repr
   var tuples = ""
   for i, aProc in procs:
+    if aProc.repr == "discard":
+      break
     var args: seq[string]
     var anonimousProcArgs: seq[string]
     let procName = aProc[0]
@@ -21,7 +23,13 @@ macro implements*(implName, interfaceName, procs:untyped):untyped =
     var tupleRow = fmt"    {procName.repr}: proc({anonimousProcArgsStr}){returnType} = self.{procName.repr}({argPart})"
     if i != 0: tuples.add(",\n")
     tuples.add(tupleRow)
-  let resultStr = fmt"""proc toInterface*(self:{implName.repr}):{interfaceName.repr} =
+  let resultStr =
+    if tuples.len == 0:
+     fmt"""proc toInterface*(self:{implName.repr}):{interfaceName.repr} =
+  return ()
+"""
+    else:
+      fmt"""proc toInterface*(self:{implName.repr}):{interfaceName.repr} =
   return (
 {tuples}
   )
