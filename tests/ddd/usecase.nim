@@ -1,9 +1,9 @@
 import repository_interface
 
-type Usecase = ref object
+type Usecase* = ref object
   repository: IRepository
 
-func newUsecase*(repository:IRepository):Usecase =
+func new*(_:type Usecase, repository:IRepository):Usecase =
   return Usecase(repository:repository)
 
 proc exec*(self:Usecase, msg:string):string =
