@@ -54,4 +54,4 @@ jobs:
     - uses: jiro4989/setup-nim-action@v1
       with:
         nim-version: ${{ matrix.nim-version }}
-    - run: testament r tests/test1.nim
+    - run: testament p tests/*.nim

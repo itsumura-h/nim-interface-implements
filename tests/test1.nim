@@ -4,11 +4,11 @@ import ddd/repository
 
 
 block:
-  let repository = newMockRepository().toInterface()
-  let usecase = newUsecase(repository)
-  assert "MockRepository mock" == usecase.exec("mock")
+  let repository = MockRepository.new(1).toInterface()
+  let usecase = Usecase.new(repository)
+  assert "MockRepository 1 mock" == usecase.exec("mock")
 
 block:
-  let repository = newRepository().toInterface()
-  let usecase = newUsecase(repository)
-  assert "Repository exec" == usecase.exec("exec")
+  let repository = Repository.new("a").toInterface()
+  let usecase = Usecase.new(repository)
+  assert "Repository a exec" == usecase.exec("exec")
