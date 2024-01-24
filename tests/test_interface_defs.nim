@@ -1,8 +1,8 @@
-import ./interface_defs/usecase
-import ./interface_defs/mock_repository
-import ./interface_defs/repository
-
 when NimMajor >= 2:
+  import ./interface_defs/usecase
+  import ./interface_defs/mock_repository
+  import ./interface_defs/repository
+
   block:
     let repository = MockRepository.new()
     let usecase = Usecase.new(repository)
