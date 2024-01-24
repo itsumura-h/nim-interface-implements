@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.2.3"
+version       = "0.2.4"
 author        = "dumblepy"
 description   = "Creating toInterface macro."
 license       = "MIT"
