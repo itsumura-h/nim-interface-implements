@@ -1,5 +1,5 @@
 import strformat
-import repository_interface
+import ./repository_interface
 import ../../src/interface_implements
 
 type Repository* = ref object

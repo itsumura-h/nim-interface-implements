@@ -19,7 +19,7 @@ type Repository* = object
 proc exec(self:Repository, msg:string):string =
   return &"Repository {msg}"
 
-proc toInterface*(selfRepository):IRepository =
+converter toInterface*(self:Repository):IRepository =
   return (
     exec: proc(msg:string):string = self.exec(msg)
   )
@@ -46,7 +46,7 @@ nimble install interface_implements
 ```
 
 ## implements
-`implements` macro creates `toInterface` proc.
+`implements` macro creates `toInterface` converter.
 
 ```nim
 import interface_implements
@@ -67,7 +67,7 @@ proc func1(self:Repository, msg:string):string =
 proc func2(self:Repository, number:int):string =
   return "Repository2 " & $number
 
-proc toInterface*(self:Repository):IRepository =
+converter toInterface*(self:Repository):IRepository =
   return (
     func1: proc(msg:string):string = self.func1(msg),
     func2: proc(number:int):string = self.func2(number)
@@ -133,12 +133,12 @@ proc exec*(self:Usecase, msg:string):string =
 presentation layer
 ```nim
 block:
-  let repository = newMockRepository().toInterface()
+  let repository = newMockRepository()
   let usecase = newUsecase(repository)
   assert "MockRepository mock" == usecase.exec("mock")
 
 block:
-  let repository = newRepository().toInterface()
+  let repository = newRepository()
   let usecase = newUsecase(repository)
   assert "Repository exec" == usecase.exec("exec")
 ```

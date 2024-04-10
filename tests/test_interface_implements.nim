@@ -4,11 +4,11 @@ import ./interface_implements/repository
 
 
 block:
-  let repository = MockRepository.new().toInterface()
+  let repository = MockRepository.new()
   let usecase = Usecase.new(repository)
   assert "MockRepository mock" == usecase.exec("mock")
 
 block:
-  let repository = Repository.new().toInterface()
+  let repository = Repository.new()
   let usecase = Usecase.new(repository)
   assert "Repository exec" == usecase.exec("exec")
