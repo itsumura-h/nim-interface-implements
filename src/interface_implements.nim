@@ -25,11 +25,11 @@ macro implements*(implName, interfaceName, procs:untyped):untyped =
     tuples.add(tupleRow)
   let resultStr =
     if tuples.len == 0:
-     fmt"""proc toInterface*(self:{implName.repr}):{interfaceName.repr} =
+     fmt"""converter toInterface*(self:{implName.repr}):{interfaceName.repr} =
   return ()
 """
     else:
-      fmt"""proc toInterface*(self:{implName.repr}):{interfaceName.repr} =
+      fmt"""converter toInterface*(self:{implName.repr}):{interfaceName.repr} =
   return (
 {tuples}
   )
