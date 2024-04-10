@@ -178,7 +178,7 @@ interfaceDef:
     exec: proc(msg:string):string
 ```
 
-mock_implement.nim
+mock_repository.nim
 ```nim
 import interface_implements
 
@@ -191,7 +191,7 @@ method exec*(self:MockRepository, msg:string):string =
   return "MockRepository " & msg
 ```
 
-implement.nim
+repository.nim
 ```nim
 import interface_implements
 
