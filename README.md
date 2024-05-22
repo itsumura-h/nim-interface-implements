@@ -7,7 +7,7 @@ interface-implements
 
 There are two ways to achieve polymorphism in Nim. One is to create `toInterface converter` and another is `dynamic dispatch`.
 
-**toInterface converter**
+### toInterface converter
 
 interface definition
 ```nim
@@ -28,7 +28,7 @@ converter toInterface*(self:Repository):IRepository =
   )
 ```
 
-**dynamic dispatch**
+### dynamic dispatch
 
 interface definition
 ```nim
