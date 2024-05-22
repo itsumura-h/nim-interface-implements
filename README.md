@@ -166,7 +166,7 @@ This is converted to bellow.
 ```nim
 type IRepository* = object of RootObj
 
-method exec(self:IRepository, msg:string):string {.base.} = raise newException(CatchableError, "Implementation exec of IRepository is not found")
+method exec*(self:IRepository, msg:string):string {.base.} = raise newException(CatchableError, "Implementation exec of IRepository is not found")
 ```
 
 
@@ -181,7 +181,7 @@ repository_interface.nim
 ```nim
 interfaceDef:
   type IRepository* = object of RootObj
-    exec: proc(msg:string):string
+    exec*: proc(msg:string):string
 ```
 
 mock_repository.nim
