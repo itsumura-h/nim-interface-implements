@@ -1,8 +1,8 @@
-import strformat
-import repository_interface
+import std/strformat
+import ./repository_interface
 import ../../src/interface_implements
 
-type MockRepository* = ref object
+type MockRepository* = object
 
 proc new*(_:type MockRepository):MockRepository =
   return MockRepository()
