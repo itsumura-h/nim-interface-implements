@@ -7,12 +7,15 @@ interface-implements
 
 There are two ways to achieve polymorphism in Nim. One is to create `toInterface converter` and another is `dynamic dispatch`.
 
-**tuple**
+**toInterface converter**
+
+interface definition
 ```nim
 type IRepository* = object
   exec: proc(msg:string):string
 ```
 
+implementation
 ```nim
 type Repository* = object
 
@@ -26,12 +29,15 @@ converter toInterface*(self:Repository):IRepository =
 ```
 
 **dynamic dispatch**
+
+interface definition
 ```nim
 type IRepository* = object of RootObj
 
 method exec(self:IRepository, msg:string):string {.base.} = raise newException(CatchableError, "error")
 ```
 
+implementation
 ```nim
 type Repository* = object of IRepository
 
