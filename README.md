@@ -12,7 +12,7 @@ There are two ways to achieve polymorphism in Nim. One is to create `toInterface
 interface definition
 ```nim
 type IRepository* = object
-  exec: proc(msg:string):string
+  exec*: proc(msg:string):string
 ```
 
 implementation
@@ -34,14 +34,14 @@ interface definition
 ```nim
 type IRepository* = object of RootObj
 
-method exec(self:IRepository, msg:string):string {.base.} = raise newException(CatchableError, "error")
+method exec*(self:IRepository, msg:string):string {.base.} = raise newException(CatchableError, "error")
 ```
 
 implementation
 ```nim
 type Repository* = object of IRepository
 
-method exec(self:Repository, msg:string):string =
+method exec*(self:Repository, msg:string):string =
   return &"Repository {msg}"
 ```
 
@@ -89,7 +89,7 @@ macro implements*(implName, interfaceName, procs:untyped):untyped
 repository_interface.nim
 ```nim
 type IRepository* = object
-  exec: proc(msg:string):string
+  exec*: proc(msg:string):string
 ```
 
 mock_repository.nim
