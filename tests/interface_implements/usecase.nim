@@ -1,6 +1,6 @@
-import repository_interface
+import ./repository_interface
 
-type Usecase* = ref object
+type Usecase* = object
   repository: IRepository
 
 func new*(_:type Usecase, repository:IRepository):Usecase =

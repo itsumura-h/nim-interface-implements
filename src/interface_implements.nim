@@ -11,7 +11,7 @@ macro implements*(implName, interfaceName, procs:untyped):untyped =
     let procName = aProc[0]
     let procImpl = aProc[3]
     if procName.repr.contains("*"):
-      raise newException(Exception, "procedure in interface must be private.")
+      raise newException(Exception, "procedure in implementation must be private.")
     let returnType = if procImpl[0].repr.len > 0: ":" & procImpl[0].repr else: ""
     for arg in procImpl[2..^1]:
       let argName = arg[0].repr
@@ -26,14 +26,16 @@ macro implements*(implName, interfaceName, procs:untyped):untyped =
   let resultStr =
     if tuples.len == 0:
      fmt"""converter toInterface*(self:{implName.repr}):{interfaceName.repr} =
-  return ()
+  return {interfaceName.repr}()
 """
     else:
       fmt"""converter toInterface*(self:{implName.repr}):{interfaceName.repr} =
-  return (
+  return {interfaceName.repr}(
 {tuples}
   )
 """
+  # echo ""
+  # echo (procsStr & '\n' & resultStr)
   return (procsStr & '\n' & resultStr).parseStmt
 
 # ================================================================================
@@ -76,5 +78,5 @@ when NimMajor >= 2:
         methods.add(methodRow)
       let interfaceStr = if i == 0: &"type {interfaceDef}\n" else: &"\ntype {interfaceDef}\n"
       res.add(interfaceStr & methods.join("\n") & "\n" )
-    when not defined(release): echo res
+    # echo res
     return parseStmt(res)

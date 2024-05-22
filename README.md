@@ -5,11 +5,11 @@ interface-implements
 
 ![](https://github.com/itsumura-h/nim-interface-implements/workflows/Build%20and%20test%20Nim/badge.svg)
 
-There are two ways to achieve polymorphism in Nim. One is to create `tuple` and another is `dynamic dispatch`.
+There are two ways to achieve polymorphism in Nim. One is to create `toInterface converter` and another is `dynamic dispatch`.
 
 **tuple**
 ```nim
-type IRepository* = tuple
+type IRepository* = object
   exec: proc(msg:string):string
 ```
 
@@ -20,7 +20,7 @@ proc exec(self:Repository, msg:string):string =
   return &"Repository {msg}"
 
 converter toInterface*(self:Repository):IRepository =
-  return (
+  return IRepository(
     exec: proc(msg:string):string = self.exec(msg)
   )
 ```
@@ -68,7 +68,7 @@ proc func2(self:Repository, number:int):string =
   return "Repository2 " & $number
 
 converter toInterface*(self:Repository):IRepository =
-  return (
+  return IRepository(
     func1: proc(msg:string):string = self.func1(msg),
     func2: proc(number:int):string = self.func2(number)
   )
@@ -82,7 +82,7 @@ macro implements*(implName, interfaceName, procs:untyped):untyped
 ### Example
 repository_interface.nim
 ```nim
-type IRepository* = tuple
+type IRepository* = object
   exec: proc(msg:string):string
 ```
 
@@ -91,7 +91,7 @@ mock_repository.nim
 import interface_implements
 import ./repository_interface
 
-type MockRepository = ref object
+type MockRepository = object
 
 proc newMockRepository*():MockRepository =
   return MockRepository()
@@ -106,7 +106,7 @@ repository.nim
 import interface_implements
 import ./repository_interface
 
-type Repository = ref object
+type Repository = object
 
 proc newRepository*():Repository =
   return Repository()
@@ -120,7 +120,7 @@ usecase.nim
 ```nim
 import ./repository_interface
 
-type Usecase = ref object
+type Usecase = object
   repository: IRepository
 
 func newUsecase*(repository:IRepository):Usecase =
